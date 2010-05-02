@@ -1,0 +1,20 @@
+<h1>Sequences</h1>
+<table border="1">
+  <tr>
+    <th>Sequence</th>
+    <th>Description</th>
+  </tr>
+<% for s in @sequences do %>
+  <tr>
+    <td><%=s.values.inspect %></td>
+    <td><%=s.description %> </td>
+  </tr>
+<% end %>
+</table>
+
+<% form_tag :action => :add_sequence do %>
+  <%=  text_field_tag "sequence" %>
+  <%=  submit_tag "Submit" %>
+<% end %>
+
+

@@ -1,0 +1,20 @@
+<h1>Permutation Classes</h1>
+<table border="1">
+  <tr>
+    <th>Patterns</th>
+    <th>Sequence</th>
+    <th>Description</th>
+  </tr>
+<% for pc in @permutation_classes do %>
+  <tr>
+    <td><%=pc.patterns %></td>
+    <td><%=pc.sequence.values_string if pc.sequence %> </td>
+    <td><%=pc.sequence.description if pc.sequence %> </td>
+  </tr>
+<% end %>
+</table>
+
+<% form_tag :action => :add_permutation_class do %>
+  <%=  text_field_tag "patterns" %>
+  <%=  submit_tag "Submit" %>
+<% end %>
