@@ -6,7 +6,7 @@
   </tr>
 <% for s in @sequences do %>
   <tr>
-    <td><%=s.values.inspect %></td>
+    <td><%= link_to  s.values.inspect, {:action => :sequence, :values => s.values_string} %></td>
     <td><%=s.description %> </td>
   </tr>
 <% end %>

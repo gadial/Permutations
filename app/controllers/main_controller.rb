@@ -13,6 +13,15 @@ class MainController < ApplicationController
   def permutations
     @permutation_classes = PermutationClass.find(:all)
   end
+  def sequence
+    puts "here!"
+    @sequence = Sequence.find_by_values_string(params[:values])
+    if @sequence.description == "None"
+      @desc = "No description available"
+    else
+      @desc = advanced_ask_the_oeis(@sequence.values)
+    end
+  end
   def draw_permutation
     if params[:permutation] != nil
       
