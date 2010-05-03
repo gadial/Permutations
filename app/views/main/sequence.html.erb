@@ -1,11 +1,15 @@
-<h1>Sequence <%= @sequence.values.inspect %></h1>
+<h1>Sequence</h1>
+<h2>Values</h2>
+<h3><%= @sequence.values.inspect %></h3>
+<h2>Descriptions</h2>
 <ul>
   <% for s in @desc do %>
     <li><%= s %></li>
   <% end %>
 </ul>
-<p>Arises from the following pattern sets:</p>
-<%  for pc in @sequence.permutation_classes do %>
-  <p><%=  pc.patterns%></p>
-<% end %>
-<%= link_to "Back", :action => :sequences %>
+<h2>Sources</h2>
+<ul>
+  <%  for pc in @sequence.permutation_classes do %>
+    <li><%=  pc.patterns%></li>
+  <% end %>
+</ul>

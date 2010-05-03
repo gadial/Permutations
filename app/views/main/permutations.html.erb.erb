@@ -8,7 +8,7 @@
 <% for pc in @permutation_classes do %>
   <tr>
     <td><%=pc.patterns %></td>
-    <td><%=pc.sequence.values_string if pc.sequence %> </td>
+    <td><%=link_to  pc.sequence.values_string, {:action => :sequence, :values => pc.sequence.values_string} if pc.sequence %> </td>
     <td><%=pc.sequence.description if pc.sequence %> </td>
   </tr>
 <% end %>
