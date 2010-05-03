@@ -16,10 +16,11 @@ class PermutationClass < ActiveRecord::Base
     find_by_patterns(patterns)
   end
   def PermutationClass.add(patterns)
-    patterns = patterns.inspect if Array === patterns
+#    patterns = patterns.inspect if Array === patterns
+    patterns = patterns.to_string_array if String === patterns
     unless PermutationClass.exists?(patterns)
       PermutationClass.new do |pc|
-          pc.patterns = patterns
+          pc.patterns = patterns.join(", ")
           pc.count
           pc.save
       end

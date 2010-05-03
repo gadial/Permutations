@@ -3,7 +3,7 @@ require 'oeis'
 class Sequence < ActiveRecord::Base
   has_many :permutation_classes
   def values
-    values_string[1...-1].split(", ").collect{|x| x.to_i}
+    values_string.to_number_array
   end
   def Sequence.find_by_values(vals)
     find_by_values_string(vals.inspect)

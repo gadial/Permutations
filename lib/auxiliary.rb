@@ -31,10 +31,11 @@ class String
     end
 
     def to_number_array
-      self[1...-1].split(/, |,/).collect{|x| x.to_i}
+      self=~/\[?(.*)\]?/
+      $1.split(/, |,/).collect{|x| x.to_i}
     end
     def to_string_array
-      self[1...-1].split(/, |,/).collect{|x| x=~/"?(.*)"?/; $1}
+      self.split(/, |,/).collect{|x| x=~/"?(.*)"?/; $1}
     end
     def replace_by_order(arr)
       result = self.dup
