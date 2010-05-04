@@ -1,0 +1,8 @@
+<h1>Extend the database</h1>
+<% form_tag :action => :extend do %>
+  <%= label_tag "n" %>
+  <%=  select_tag 'n', options_for_select((1..5).to_a)%>
+  <%= label_tag "k" %>
+  <%=  select_tag 'k', options_for_select((1..5).to_a)%>
+  <%=  submit_tag "Submit" %>
+<% end %>

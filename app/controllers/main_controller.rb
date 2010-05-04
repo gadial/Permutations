@@ -1,3 +1,4 @@
+require 'permutations'
 class MainController < ApplicationController
   def add_sequence
     Sequence.add(params[:sequence])
@@ -20,6 +21,13 @@ class MainController < ApplicationController
       @desc = "No description available"
     else
       @desc = advanced_ask_the_oeis(@sequence.values)
+    end
+  end
+  def extend
+    n = params[:n].to_i
+    k = params[:k].to_i
+    if n != 0 and k != 0
+      all_classical_patterns(n,k){|patterns| puts patterns.inspect; PermutationClass.add(patterns)}
     end
   end
   def draw_permutation

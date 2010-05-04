@@ -150,10 +150,12 @@ class Permutation
     (1..size).each{|i| (1...i).each{|j| displacement_vectors << [i-j,@vals[i]-@vals[j]]}}
     return displacement_vectors.uniq == displacement_vectors
   end
+  def to_classical_pattern
+    @vals[1..-1].join("-")
+  end
 end
 
 def generate_all_containing_permutations(n, p_string)
-  puts "p_string is #{p_string.inspect}"
   result = []
   edges_in_adjacent_rows = true if p_string[0..0] == "["   and p_string[-1..-1] == "]"
   p_string = p_string.delete("[]")
@@ -176,16 +178,23 @@ def generate_all_containing_permutations(n, p_string)
 end
 
 def pattern_avoding_permutations(n,patterns)
-  puts "patterns = #{patterns.inspect}"
   result = Permutation.all(n)
   patterns.each{|p| result -= generate_all_containing_permutations(n,p)}
   result
 end
 
 def count_avoiding(max,patterns)
-  puts "counting for patterns = #{patterns.inspect}"
   result = (1..max).collect do |n|
     permutations = pattern_avoding_permutations(n, patterns)
     permutations.length
   end
+end
+
+def all_permutations(n,k, &p)
+  perms = Permutation.all(n)
+  all_choices(perms.length,k){|c| p.call(c.collect{|i| perms[i]})}
+end
+
+def all_classical_patterns(n,k,&p)
+  all_permutations(n,k){|p_set| p.call(p_set.collect{|perm| perm.to_classical_pattern})}
 end

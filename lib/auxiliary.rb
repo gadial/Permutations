@@ -1,4 +1,3 @@
-
 def all_choices_of_integers(n,k)
     return (0...n).collect{|x| [x]} if k == 1
     result = []
@@ -65,4 +64,16 @@ class Array
   def all_choices_without_repetitions(k)
       all_choices_of_integers(length,k).collect{|t| t.collect{|i| self[i]}}
   end
+end
+
+def all_choices(n,k,&p)
+    if k == 1
+      for i in (0...n) do
+	p.call([i])
+      end
+      return
+    end
+    for i in ((k-1)...n) do
+      all_choices(i,k-1){|t| p.call(t + [i])}
+    end
 end
