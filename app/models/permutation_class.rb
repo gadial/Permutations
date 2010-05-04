@@ -5,7 +5,7 @@ class PermutationClass < ActiveRecord::Base
   def pattern_array
     patterns.to_string_array
   end
-  def count(max = 7)
+  def count(max = 8)
     s = self.sequence
     return unless s == nil or s.values.length < max
     results = count_avoiding(max, pattern_array)
