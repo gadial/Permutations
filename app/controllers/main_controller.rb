@@ -27,7 +27,7 @@ class MainController < ApplicationController
     n = params[:n].to_i
     k = params[:k].to_i
     if n != 0 and k != 0
-      all_classical_patterns(n,k){|patterns| puts patterns.inspect; PermutationClass.add(patterns)}
+      all_classical_patterns(n,k){|patterns| PermutationClass.add(patterns)}
     end
   end
   def draw_permutation

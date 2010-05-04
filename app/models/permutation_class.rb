@@ -17,9 +17,10 @@ class PermutationClass < ActiveRecord::Base
   end
   def PermutationClass.add(patterns)
     patterns = patterns.to_string_array if String === patterns
+    patterns = patterns.sort.join(", ")
     unless PermutationClass.exists?(patterns)
       PermutationClass.new do |pc|
-          pc.patterns = patterns.sort.join(", ")
+          pc.patterns = patterns
           pc.count
           pc.save
       end
