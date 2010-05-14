@@ -1,5 +1,5 @@
 <h1>Sequence</h1>
-<h2>Values</h2>
+<h2><%= @sequence.values.length%> Values</h2>
 <h3><%= @sequence.values.inspect %></h3>
 <h2>Descriptions</h2>
 <ul>
@@ -13,3 +13,8 @@
     <li><%=  pc.patterns%></li>
   <% end %>
 </ul>
+
+<% form_tag :action => :expand_sequence do %>
+  <%= hidden_field_tag "id", @sequence.id %>
+  <%=  submit_tag "Expand" %>
+<% end %>

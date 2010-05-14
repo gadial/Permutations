@@ -1,14 +1,20 @@
 <h1>Sequences</h1>
+<% form_tag :action => :sequences do %>
+  <%= hidden_field_tag "show_unknown_sequences", true %>
+  <%=  submit_tag "Show unknown sequences" %>
+<% end %>
 <table border="1">
   <tr>
     <th>Sequence</th>
     <th>Description</th>
   </tr>
 <% for s in @sequences do %>
-  <tr>
-    <td><%= link_to  s.values.inspect, {:action => :sequence, :values => s.values_string} %></td>
-    <td><%=s.description %> </td>
-  </tr>
+  <% if s.description != "None" or params[:show_unknown_sequences] %>
+    <tr>
+      <td><%= link_to  s.values.inspect, {:action => :sequence, :values => s.values_string} %></td>
+      <td><%=s.description %> </td>
+    </tr>
+ <% end %>
 <% end %>
 </table>
 
@@ -16,5 +22,4 @@
   <%=  text_field_tag "sequence" %>
   <%=  submit_tag "Submit" %>
 <% end %>
-
 

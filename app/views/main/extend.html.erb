@@ -4,5 +4,7 @@
   <%=  select_tag 'n', options_for_select((1..5).to_a)%>
   <%= label_tag "k" %>
   <%=  select_tag 'k', options_for_select((1..5).to_a)%>
+  <%= label_tag "Generalized patterns" %>
+  <%= check_box_tag 'generalized', "yes", true %>
   <%=  submit_tag "Submit" %>
 <% end %>

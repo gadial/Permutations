@@ -8,9 +8,13 @@ class PermutationClass < ActiveRecord::Base
   def count(max = 7)
     s = self.sequence
     return unless s == nil or s.values.length < max
+    puts "now counting for #{pattern_array.inspect} up to #{max}"
+    puts "for now, my sequence is #{self.sequence.inspect}"
     results = count_avoiding(max, pattern_array)
     Sequence.add(results)
     self.sequence = Sequence.find_by_values(results)
+    puts "finished counting, results = #{results.inspect}"
+    puts "now my sequence is #{self.sequence.inspect}"
   end
   def PermutationClass.exists?(patterns)
     find_by_patterns(patterns)

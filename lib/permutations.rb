@@ -153,6 +153,11 @@ class Permutation
   def to_classical_pattern
     @vals[1..-1].join("-")
   end
+  def to_generalized_patterns
+    res = ["-",""].all_choices_with_repetitions(size-1).collect{|c| temp = @vals[1..-1].join("x"); (size-1).times{temp.sub!("x", c.shift)}; temp}
+    res.collect!{|c| [c,"[" + c + "]"]}.flatten! if (@vals[1]-@vals[-1]).abs == 1
+    res
+  end
 end
 
 def generate_all_containing_permutations(n, p_string)
@@ -197,4 +202,12 @@ end
 
 def all_classical_patterns(n,k,&p)
   all_permutations(n,k){|p_set| p.call(p_set.collect{|perm| perm.to_classical_pattern})}
+end
+
+def all_generalized_patterns(n,k, &p)
+  perms = Permutation.all(n).collect{|perm| perm.to_generalized_patterns}.flatten
+  all_choices(perms.length,k) do |c|
+      items = c.collect{|i| perms[i]}
+      p.call(items) unless items.collect{|pattern| pattern.delete("[]-")}.uniq.length != k
+  end
 end
