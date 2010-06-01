@@ -17,7 +17,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: Polyominoes
+  database: pol_production
   pool: 5
   username: root
   password:

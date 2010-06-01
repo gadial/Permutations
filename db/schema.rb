@@ -9,7 +9,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100502115431) do
+ActiveRecord::Schema.define(:version => 20100517093455) do
+
+  create_table "counters", :force => true do |t|
+    t.string   "values_string"
+    t.string   "counter_type",   :default => "standard"
+    t.integer  "n"
+    t.integer  "d",              :default => 2
+    t.integer  "leaper_a",       :default => 0
+    t.integer  "leaper_b",       :default => 0
+    t.integer  "parallel_level", :default => 0
+    t.integer  "slices",         :default => 1
+    t.boolean  "active",         :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "counting_tasks", :force => true do |t|
+    t.string   "cmd"
+    t.string   "result"
+    t.boolean  "finished",   :default => false
+    t.integer  "priority",   :default => 0
+    t.integer  "counter_id"
+    t.float    "time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "permutation_classes", :force => true do |t|
     t.string   "patterns"

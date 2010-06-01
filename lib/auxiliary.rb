@@ -45,7 +45,7 @@ class String
 end
 
 class Array
-  	def all_permutations
+  def all_permutations
 		return [[]] if empty?
 		sort.inject([]){|sum,x| sum += (self-[x]).all_permutations.collect{|p| p.unshift(x)}}
 	end
@@ -64,6 +64,22 @@ class Array
   def all_choices_without_repetitions(k)
       all_choices_of_integers(length,k).collect{|t| t.collect{|i| self[i]}}
   end
+
+  def slice(slices)
+    result = []
+    slices.times do |i|
+      start = i * ((size / slices) + 1)
+      ending = [(i+1) * ((size / slices) + 1),size].min
+      result << self[start...ending] unless start >= ending
+    end
+    result
+  end
+
+  def vector_partial_sum(rhs, from, to)
+    result = dup
+    (from..to).each{|i| result[i] += rhs[i]}
+    result
+  end
 end
 
 def all_choices(n,k,&p)
@@ -77,3 +93,5 @@ def all_choices(n,k,&p)
       all_choices(i,k-1){|t| p.call(t + [i])}
     end
 end
+
+puts (0..19).to_a.slice(5).inspect

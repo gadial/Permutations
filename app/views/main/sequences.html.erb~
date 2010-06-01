@@ -10,11 +10,13 @@
     <th>Number of Patterns</th>
   </tr>
 <% for s in @sequences do %>
+  <% if s.description != "None" or params[:show_unknown_sequences] %>
     <tr>
       <td><%= link_to  s.values.inspect, {:action => :sequence, :values => s.values_string} %></td>
       <td><%=s.description %> </td>
       <td><%=s.permutation_classes.length %> </td>
     </tr>
+ <% end %>
 <% end %>
 </table>
 

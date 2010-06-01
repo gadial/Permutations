@@ -1,0 +1,21 @@
+<h1>Counting Tasks</h1>
+<table border="1">
+  <thead>
+    <tr>
+      <td>Command</td>
+      <td>Priority</td>
+      <td>Counter</td>
+      <td>Result</td>
+      <td>Time</td>
+    </tr>
+  </thead>
+  <%for c in @counting_tasks do%>
+  <tr>
+    <td><%= c.cmd%> </td>
+    <td><%= c.priority%> </td>
+    <td><%= c.counter.inspect%> </td>
+    <td><%= c.result%> </td>
+    <td><%= c.time%> </td>
+  </tr>
+  <% end %>
+</table>

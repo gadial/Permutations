@@ -1,0 +1,12 @@
+<h1>Counter list</h1>
+<table border="1">
+  <%for counter in @counters do%>
+  <tr>
+    <td><%= counter.inspect%> </td>
+    <td><%= counter.percent_done%> %</td>
+    <td><%= link_to "Activate (currently #{counter.active})", {:action => :activate_counter, :id => counter.id} %> </td>
+    <td><%= counter.results.inspect %></td>
+    <td><%= counter.time %></td>
+  </tr>
+  <% end %>
+</table>

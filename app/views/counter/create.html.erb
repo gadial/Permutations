@@ -1,0 +1,42 @@
+<h1>Create Counter</h1>
+
+<% form_for @counter, :url => {:controller => :counter, :action => :add_counter} do |f| %>
+<table>
+  <tr>
+    <td><%= f.error_messages  :header_message => "Illegal counter", :message => "The following problems exists with the counter:" %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "n" %></td>
+    <td><%= f.text_field :n %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "d" %></td>
+    <td><%= f.text_field :d %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "type" %></td>
+    <td><%= f.select 'counter_type', options_for_select(["standard", "leaper", "triangles"])%></td>
+  </tr>
+  <tr>
+    <td><%= f.label "Leaper a" %></td>
+    <td><%= f.text_field :leaper_a %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "Leaper b" %></td>
+    <td><%= f.text_field :leaper_b %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "Paraller Level" %></td>
+    <td><%= f.text_field :parallel_level %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "Slices" %></td>
+    <td><%= f.text_field :slices %></td>
+  </tr>
+
+
+  <tr>
+    <td><%= f.submit "אשר" %></td>
+  </tr>
+<% end %>
+</table>
