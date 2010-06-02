@@ -49,11 +49,20 @@ class Counter < ActiveRecord::Base
   end
 
   def results
-    counting_tasks.reject{|t| not t.finished}.collect{|t| t.result_array}.inject([0]*n){|sum, v| v.vector_partial_sum(sum, parallel_level,v.length - 1)}
+    begin
+      return counting_tasks.reject{|t| not t.finished}.collect{|t| t.result_array}.inject([0]*n){|sum, v| v.vector_partial_sum(sum, parallel_level,v.length - 1)}
+    rescue Exception
+      fix_results
+      return nil #don't try again this time, so we won't end up in an infinite loop
+    end
   end
 
   def time
     counting_tasks.reject{|t| not t.finished}.collect{|t| t.time}.sum
+  end
+
+  def fix_results
+    counting_tasks.find_all{|t| t.finished and (t.result == "" or nil == t.result)}.each{|t| t.finished = false; t.save} #in case nil results were accidently submitted
   end
 end
 

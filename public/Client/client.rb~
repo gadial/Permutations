@@ -54,7 +54,7 @@ class Client
 	when :quit then exit
 	end
       rescue Exception
-	puts "connection failed, retrying soon..." if DEBUG_MESSAGES
+	puts "connection refused, retrying soon..." if DEBUG_MESSAGES
 	@status = :wait
 	retry
       end
