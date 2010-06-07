@@ -58,7 +58,11 @@ class Counter < ActiveRecord::Base
   end
 
   def time
-    counting_tasks.reject{|t| not t.finished}.collect{|t| t.time}.sum
+    begin
+      counting_tasks.reject{|t| not t.finished}.collect{|t| t.time}.sum
+    rescue Exception
+      return "error"
+    end
   end
 
   def fix_results
