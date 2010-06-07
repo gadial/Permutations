@@ -37,7 +37,7 @@ class CounterController < ApplicationController
     @id = params[:id]
     @result = params[:result]
     @time = params[:time]
-    if @id
+    if @id and @result
       task = CountingTask.find_by_id(@id)
       task.set_result(@result, @time)
     end
