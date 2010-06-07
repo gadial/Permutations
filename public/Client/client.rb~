@@ -6,6 +6,7 @@ DEBUG_MESSAGES = false
 class Client
 #   $server_address = "http://localhost:3000"
   $server_address = "http://www.perm.gadial.net"
+  $idle_sleep_time = 60
   def initialize
     @status = :idle
   end
@@ -39,7 +40,7 @@ class Client
   
   def wait
     puts "sleeping..." if DEBUG_MESSAGES
-    sleep 5
+    sleep $idle_sleep_time
     @status = :idle
   end
   
@@ -54,7 +55,7 @@ class Client
 	when :quit then exit
 	end
       rescue Exception
-	puts "connection refused, retrying soon..." if DEBUG_MESSAGES
+	puts "connection failed, retrying soon..." if DEBUG_MESSAGES
 	@status = :wait
 	retry
       end

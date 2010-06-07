@@ -6,6 +6,7 @@ DEBUG_MESSAGES = false
 class Client
 #   $server_address = "http://localhost:3000"
   $server_address = "http://www.perm.gadial.net"
+  $idle_sleep_time = 300
   def initialize
     @status = :idle
   end
@@ -39,7 +40,7 @@ class Client
   
   def wait
     puts "sleeping..." if DEBUG_MESSAGES
-    sleep 5
+    sleep $idle_sleep_time
     @status = :idle
   end
   

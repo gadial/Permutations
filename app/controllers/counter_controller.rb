@@ -61,4 +61,11 @@ class CounterController < ApplicationController
     end
     redirect_to :action => :show_counters
   end
+  def fix_counter
+    counter = Counter.find_by_id(params[:id])
+    if counter
+      counter.fix_results
+    end
+    redirect_to :action => :show_counters
+  end
 end
