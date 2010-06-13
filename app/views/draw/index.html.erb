@@ -1,0 +1,10 @@
+<h1>Draw</h1>
+<% form_tag :action => :index do %>
+  <%= hidden_field_tag 'clear', 'true' %>
+  <%= submit_tag "Clear" %>
+<% end  %>
+<a href = "<%= url_for(:action => :index) %>"
+  <img src = "<%= @polyomino_pic_name %>" ismap/>
+</a>
+
+<p><%= @permutation.inspect %> </p>
