@@ -1,3 +1,6 @@
+require 'rvg/rvg'
+include Magick
+
 class Array
   def collect_with_index
     result = []
@@ -199,6 +202,48 @@ class Polyomino
     (0..2).each {|d| @squares.collect{|s| s[d]}.uniq.each{|i| return false unless cut_2d(d,i).is_convex_2d?}}
     return true
   end
+  def draw(dpi = 30)
+    k = @@square_size
+    max_x = (@squares.collect{|s| s.x}.max || 0) + 1
+    min_x = (@squares.collect{|s| s.x}.min || 0) - 1
+    max_y = (@squares.collect{|s| s.y}.max || 0) + 1
+    min_y = (@squares.collect{|s| s.y}.min || 0) - 1
+
+    size_x = k*(max_x-min_x+1)
+    size_y = k*(max_y-min_y+1)
+    
+    RVG::dpi = dpi
+    rvg = RVG.new(size_x,size_y).viewbox(k*(min_x),k*(min_y),size_x,size_y) do |canvas|
+      canvas.background_fill = 'white'
+      canvas.g do |body|
+          body.styles(:fill=>'red', :stroke=>'black', :stroke_width=>3)
+          @squares.each{|s| body.rect(k, k, k*s.x, k*s.y)}
+      end
+    end
+    rvg.draw.flip
+  end
+  def change_sqaure_at_screen_coords(coords)
+    k = @@square_size
+    max_x = (@squares.collect{|s| s.x}.max || 0) + 1
+    min_x = (@squares.collect{|s| s.x}.min || 0) - 1
+    max_y = (@squares.collect{|s| s.y}.max || 0) + 1
+    min_y = (@squares.collect{|s| s.y}.min || 0) - 1
+
+    size_x = k*(max_x-min_x+1)
+    size_y = k*(max_y-min_y+1)
+
+    x = (coords.first / k) + min_x
+    y = (((size_y - coords.last) / k) + min_y) #remember we flip
+
+    puts "coords = #{coords.inspect}"
+    puts "x,y = #{[x,y].inspect}"
+    new_square = Square[x,y]
+    if include?(new_square)
+      remove_square(new_square)
+    else
+      add_square(new_square)
+    end
+  end
 end
 
 class LeaperSquare < Square
@@ -281,5 +326,9 @@ class RedelmeierAlgorithm
   end
 end
 
+#p = Polyomino.new
+#p << [0,0] << [0,1]
+#
+#p.draw.display
 #a = RedelmeierAlgorithm.new(:n => 6, :type => :leaper, :leaper_a => 1, :leaper_b => 2)
 #puts a.run.results.inspect

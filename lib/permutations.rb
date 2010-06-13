@@ -1,3 +1,6 @@
+require 'rvg/rvg'
+include Magick
+
 require 'auxiliary'
 class Permutation
   attr_reader :vals

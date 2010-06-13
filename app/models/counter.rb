@@ -45,6 +45,7 @@ class Counter < ActiveRecord::Base
   end
 
   def percent_done
+    return "error" if counting_tasks.length == 0
     100*counting_tasks.find_all{|t| t.finished}.length / counting_tasks.length
   end
 
