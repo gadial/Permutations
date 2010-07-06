@@ -305,14 +305,20 @@ class RedelmeierAlgorithm
       untried_set -= [new_square]
       new_untried_set = untried_set.dup + find_and_update_new_neighbors(new_square)
       @p << new_square
-      recurse(new_untried_set)
+      recurse(new_untried_set) if legal_to_recurse(new_square)
       @p.remove_square(new_square)
       remove_neighbors(new_square)
     end
   end
+  def legal_to_recurse(new_square)
+    case @square_type
+    when :tree then return((@square_reference_count[new_square] || 0) <= 1)
+    end
+    true
+  end
   def origin
     case @square_type
-    when nil, :standard then return Square.origin(@d)
+    when nil, :standard, :tree then return Square.origin(@d)
     when :triangles then return TriangleSquare.origin
     when :leaper then return LeaperSquare.origin(@neighborhood)
     end
@@ -330,5 +336,5 @@ end
 #p << [0,0] << [0,1]
 #
 #p.draw.display
-#a = RedelmeierAlgorithm.new(:n => 6, :type => :leaper, :leaper_a => 1, :leaper_b => 2)
+#a = RedelmeierAlgorithm.new(:n => 8, :type => :tree)
 #puts a.run.results.inspect

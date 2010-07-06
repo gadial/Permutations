@@ -11,6 +11,7 @@ class Counter < ActiveRecord::Base
     cmd_line += " -d #{d}" if d and d != 2
     cmd_line += " -t 0" if counter_type == "standard"
     cmd_line += " -t 1" if counter_type == "leaper"
+    cmd_line += " -t 2" if counter_type == "tree"
     cmd_line += " -p #{parallel_level}"
     cmd_line += " -s #{slice_start}"
     cmd_line += " -r #{slice_end}"
@@ -32,8 +33,16 @@ class Counter < ActiveRecord::Base
     end
   end
 
+  def counter_type_string
+    res = counter_type
+    if counter_type == "leaper"
+      res += " (#{leaper_a},#{leaper_b})"
+    end
+    res
+  end
+  
   def inspect
-    "Counter for n = #{n}, d = #{d}, type = #{counter_type}, with #{slices} slices starting at parallel level #{parallel_level}"
+    "Counter for n = #{n}, d = #{d}, type = #{counter_type_string}, with #{slices} slices starting at parallel level #{parallel_level}"
   end
 
   def get_counting_task

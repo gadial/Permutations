@@ -1,10 +1,26 @@
+<%= javascript_include_tag :defaults %>
+
+<script language="javascript">
+function getMouseCoords(obj, evt){
+  clickX = evt.clientX-obj.offsetLeft;
+  clickY = evt.clientY-obj.offsetTop;
+  return new Array(clickX, clickY)
+}
+</script>
+
+<script type="text/javascript">
+function changeSrc(coords)
+  {
+  document.getElementById("polyomino_img").src=("/draw/polyomino_pic?x=" + coords[0] + "&y=" + coords[1]);
+  }
+</script>
+
 <h1>Draw</h1>
 <% form_tag :action => :index do %>
   <%= hidden_field_tag 'clear', 'true' %>
   <%= submit_tag "Clear" %>
 <% end  %>
-<a href = "<%= url_for(:action => :index) %>"
-  <img src = "<%= @polyomino_pic_name %>" ismap/>
-</a>
-
+<img src ="/draw/polyomino_pic" id="polyomino_img" onclick = "changeSrc(getMouseCoords(this, event))">
 <p><%= @permutation.inspect %> </p>
+
+
