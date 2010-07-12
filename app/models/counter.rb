@@ -23,7 +23,7 @@ class Counter < ActiveRecord::Base
   def create_tasks
     task_max = RedelmeierAlgorithm.new(:n => parallel_level, :d => d, :type => counter_type.to_sym, :leaper_a => leaper_a, :leaper_b => leaper_b).run.results.last
     tasks_numbers = (0..task_max).to_a.slice(slices)
-    puts tasks_numbers.inspect
+#    puts tasks_numbers.inspect
     for t in tasks_numbers do
       CountingTask.new do |task|
         task.cmd = cmd(t.first, t.last)
@@ -31,6 +31,9 @@ class Counter < ActiveRecord::Base
         task.save
       end
     end
+    self.total_tasks_num = counting_tasks.length
+    self.finished_tasks_num = 0
+    save
   end
 
   def counter_type_string
@@ -54,8 +57,9 @@ class Counter < ActiveRecord::Base
   end
 
   def percent_done
-    return "error" if counting_tasks.length == 0
-    100*counting_tasks.find_all{|t| t.finished}.length / counting_tasks.length
+    return "error" if slices == 0
+    100*finished_tasks_num / total_tasks_num
+#    100*counting_tasks.find_all{|t| t.finished}.length / counting_tasks.length
   end
 
   def results
@@ -77,6 +81,17 @@ class Counter < ActiveRecord::Base
 
   def fix_results
     counting_tasks.find_all{|t| t.finished and (t.result == "" or nil == t.result)}.each{|t| t.finished = false; t.save} #in case nil results were accidently submitted
+  end
+
+  def calculate_current_tasks_num
+    self.total_tasks_num = counting_tasks.length
+    self.finished_tasks_num = counting_tasks.find_all{|t| t.finished}.length
+    save
+  end
+
+  def inc_finished_tasks
+    self.finished_tasks_num += 1
+    save
   end
 end
 

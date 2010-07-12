@@ -43,6 +43,7 @@ class CounterController < ApplicationController
     end
 
     counter = Counter.find_by_active(true)
+    counter.inc_finished_tasks
     if counter.percent_done == 100
       counter.active = false
       counter.save
