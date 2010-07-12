@@ -93,5 +93,3 @@ def all_choices(n,k,&p)
       all_choices(i,k-1){|t| p.call(t + [i])}
     end
 end
-
-puts (0..19).to_a.slice(5).inspect
