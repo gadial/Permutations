@@ -69,4 +69,8 @@ class CounterController < ApplicationController
     end
     redirect_to :action => :show_counters
   end
+  def results
+    @counter = Counter.find_by_id(params[:id])
+    render :partial => 'results'
+  end
 end

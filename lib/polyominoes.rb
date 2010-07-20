@@ -1,5 +1,5 @@
-require 'rvg/rvg'
-include Magick
+#require 'rvg/rvg'
+#include Magick
 
 class Array
   def collect_with_index
