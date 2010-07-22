@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100712065338) do
+ActiveRecord::Schema.define(:version => 20100721053436) do
 
   create_table "counters", :force => true do |t|
     t.string   "values_string"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20100712065338) do
     t.datetime "updated_at"
     t.integer  "finished_tasks_num"
     t.integer  "total_tasks_num"
+    t.integer  "task_max",           :default => 0
   end
 
   create_table "counting_tasks", :force => true do |t|

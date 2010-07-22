@@ -6,7 +6,7 @@ class CounterAddFinishedCount < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :counters, :finished_tasks_num, :integer
-    drop_column :counters, :total_tasks_num, :integer
+    remove_column :counters, :finished_tasks_num
+    remove_column :counters, :total_tasks_num
   end
 end

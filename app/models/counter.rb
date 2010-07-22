@@ -12,6 +12,7 @@ class Counter < ActiveRecord::Base
     cmd_line += " -t 0" if counter_type == "standard"
     cmd_line += " -t 1" if counter_type == "leaper"
     cmd_line += " -t 2" if counter_type == "tree"
+    cmd_line += " -t 3" if counter_type == "proper tree"
     cmd_line += " -p #{parallel_level}"
     cmd_line += " -s #{slice_start}"
     cmd_line += " -r #{slice_end}"
@@ -21,8 +22,12 @@ class Counter < ActiveRecord::Base
   end
 
   def create_tasks
-    task_max = RedelmeierAlgorithm.new(:n => parallel_level, :d => d, :type => counter_type.to_sym, :leaper_a => leaper_a, :leaper_b => leaper_b).run.results.last
-    tasks_numbers = (0..task_max).to_a.slice(slices)
+    if task_max > 0
+      tm = task_max
+    else
+      tm = RedelmeierAlgorithm.new(:n => parallel_level, :d => d, :type => counter_type.to_sym, :leaper_a => leaper_a, :leaper_b => leaper_b).run.results.last
+    end
+    tasks_numbers = (0..tm).to_a.slice(slices)
 #    puts tasks_numbers.inspect
     for t in tasks_numbers do
       CountingTask.new do |task|

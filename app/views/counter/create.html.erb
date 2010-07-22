@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td><%= f.label "type" %></td>
-    <td><%= f.select 'counter_type', options_for_select(["standard", "leaper", "tree", "triangles"])%></td>
+    <td><%= f.select 'counter_type', options_for_select(["standard", "leaper", "tree", "proper tree", "triangles"])%></td>
   </tr>
   <tr>
     <td><%= f.label "Leaper a" %></td>
@@ -32,6 +32,10 @@
   <tr>
     <td><%= f.label "Slices" %></td>
     <td><%= f.text_field :slices %></td>
+  </tr>
+  <tr>
+    <td><%= f.label "Task max" %></td>
+    <td><%= f.text_field :task_max %></td>
   </tr>
 
 
