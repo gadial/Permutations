@@ -60,7 +60,9 @@ class Counter < ActiveRecord::Base
     task.save
     return task
   end
-
+  def finished?
+      counting_tasks.find{|t| not t.finished} == nil
+  end
   def percent_done
     return "error" if (not total_tasks_num) or (total_tasks_num == 0)
     100*finished_tasks_num / total_tasks_num
