@@ -60,6 +60,9 @@ class Counter < ActiveRecord::Base
     task.save
     return task
   end
+  def remaining_tasks
+    counting_tasks.find_all{|t| not t.finished}.length
+  end
   def finished?
       counting_tasks.find{|t| not t.finished} == nil
   end
