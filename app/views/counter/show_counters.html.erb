@@ -3,7 +3,7 @@
   <%for counter in @counters do%>
   <tr>
     <td><%= counter.inspect%> </td>
-    <td><%= counter.remaining_tasks %> %</td>
+    <td><%= counter.remaining_tasks %> </td>
     <td><%= link_to "Activate (currently #{counter.active})", {:action => :activate_counter, :id => counter.id} %> </td>
     <td><div id="results_<%= counter.id %>"><%= link_to_remote "Show results", :url => {:action => 'results', :id => counter.id}, :update => 'results_' + counter.id.to_s %></div></td>
     <td><%= link_to "Fix", {:action => :fix_counter, :id => counter.id} %> </td>
